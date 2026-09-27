@@ -8,8 +8,10 @@ venv/
 .venv/
 env/
 
-# SQLite journal files
+# SQLite database & journal files
+*.db
 *.db-journal
+careconnect.db
 
 # Editor settings
 .vscode/

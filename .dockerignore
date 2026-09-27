@@ -10,3 +10,5 @@ venv/
 .gitignore
 .vscode/
 *.md
+*.db
+careconnect.db

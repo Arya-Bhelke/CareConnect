@@ -130,7 +130,7 @@ if menu_selection == "🏠 Dashboard":
 
     if not today_df.empty:
         display_df = today_df[["appointment_id", "patient_name", "doctor_name", "department", "appointment_time", "status", "reason"]]
-        st.dataframe(display_df, use_container_width=True, hide_index=True)
+        st.dataframe(display_df, width="stretch", hide_index=True)
     else:
         st.info("No appointments scheduled for today yet. Use the 'Book Appointment' page to schedule a visit.")
 
@@ -166,7 +166,7 @@ elif menu_selection == "👤 Patient Registration":
             blood_group = st.selectbox("Blood Group *", ["A+", "A-", "B+", "B-", "O+", "O-", "AB+", "AB-"])
             city = st.text_input("City / Area *", value="Pune")
 
-        submitted = st.form_submit_button("💾 Register Patient", use_container_width=True)
+        submitted = st.form_submit_button("💾 Register Patient", width="stretch")
 
         if submitted:
             if not full_name.strip():
@@ -189,7 +189,7 @@ elif menu_selection == "👤 Patient Registration":
     st.subheader("📋 Registered Patients Directory")
     patients_df = db.get_all_patients()
     if not patients_df.empty:
-        st.dataframe(patients_df, use_container_width=True, hide_index=True)
+        st.dataframe(patients_df, width="stretch", hide_index=True)
     else:
         st.info("No patients registered yet.")
 
@@ -238,7 +238,7 @@ elif menu_selection == "📅 Book Appointment":
                 )
                 reason = st.text_input("Reason for Visit / Symptoms *", placeholder="e.g. Mild fever and body ache")
 
-            book_submitted = st.form_submit_button("📅 Confirm & Schedule Appointment", use_container_width=True)
+            book_submitted = st.form_submit_button("📅 Confirm & Schedule Appointment", width="stretch")
 
             if book_submitted:
                 if not reason.strip():
@@ -275,7 +275,7 @@ elif menu_selection == "📋 Manage Appointments":
     if appointments_df.empty:
         st.info("No appointments found matching the selected filter.")
     else:
-        st.dataframe(appointments_df, use_container_width=True, hide_index=True)
+        st.dataframe(appointments_df, width="stretch", hide_index=True)
 
         st.markdown("---")
         st.subheader("🔄 Update Appointment Status")
@@ -296,7 +296,7 @@ elif menu_selection == "📋 Manage Appointments":
         with col_up3:
             st.write("") # spacing
             st.write("")
-            if st.button("Update Status", use_container_width=True):
+            if st.button("Update Status", width="stretch"):
                 db.update_appointment_status(selected_apt_id, new_status)
                 st.success(f"Appointment #{selected_apt_id} status updated to '{new_status}'!")
                 st.rerun()
@@ -329,7 +329,7 @@ elif menu_selection == "🚑 Emergency Coordination":
                 pickup_address = st.text_area("Pickup Address & Landmark *", placeholder="e.g. Building C, Swargate, Pune")
                 emergency_notes = st.text_area("Patient Condition / Notes *", placeholder="e.g. Elderly person experiencing breathing difficulty")
 
-            submitted_emergency = st.form_submit_button("🚨 Dispatch Ambulance Request", use_container_width=True)
+            submitted_emergency = st.form_submit_button("🚨 Dispatch Ambulance Request", width="stretch")
 
             if submitted_emergency:
                 if not caller_name.strip() or not contact_number.strip() or not pickup_address.strip():
@@ -350,7 +350,7 @@ elif menu_selection == "🚑 Emergency Coordination":
     emergencies_df = db.get_all_emergency_requests()
 
     if not emergencies_df.empty:
-        st.dataframe(emergencies_df, use_container_width=True, hide_index=True)
+        st.dataframe(emergencies_df, width="stretch", hide_index=True)
 
         st.markdown("#### Update Dispatch Status")
         em_col1, em_col2, em_col3 = st.columns([2, 1, 1])
@@ -368,7 +368,7 @@ elif menu_selection == "🚑 Emergency Coordination":
         with em_col3:
             st.write("")
             st.write("")
-            if st.button("Update Dispatch", use_container_width=True):
+            if st.button("Update Dispatch", width="stretch"):
                 db.update_emergency_status(selected_em_id, new_em_status)
                 st.success(f"Emergency #{selected_em_id} status updated to '{new_em_status}'!")
                 st.rerun()
@@ -403,7 +403,7 @@ elif menu_selection == "🩸 Blood Bank Directory":
     blood_df = db.get_blood_inventory(blood_group=selected_bg)
 
     if not blood_df.empty:
-        st.dataframe(blood_df[["bank_name", "blood_group", "units_available", "city", "contact_number", "last_updated"]], use_container_width=True, hide_index=True)
+        st.dataframe(blood_df[["bank_name", "blood_group", "units_available", "city", "contact_number", "last_updated"]], width="stretch", hide_index=True)
     else:
         st.warning("No blood banks found with the selected group.")
 
